@@ -62,3 +62,11 @@ Sorted by gap (fan-out minus correct, percentage points).
 | 25% | 63.0 | 4.0 | ×1.086 | 34.89% | -1.89 | +0.82 | 4.0 |
 | 30% | 51.0 | 4.0 | ×1.073 | 34.90% | -1.89 | +0.86 | 4.0 |
 | 40% | 15.0 | 10.0 | ×1.012 | 35.14% | -1.66 | +2.23 | 5.0 |
+
+## The mistake I made first (`exploratory_slip.csv`)
+
+My first exploratory pass grouped on the extract's commissioner parent code as it comes. NHS England's specialised
+commissioning hubs have that field blank, and pandas' groupby drops a blank key by default, so 130,172 hub pathways
+fell out of every trust's share and the hubs out of the lookup. With the same ≥20% rule and the same join, the
+treatment-function gaps came out at −0.83 to +3.19 points (7 moved by 0.5+), against −0.75 to +0.69 (5) once fixed.
+Notebook 03 re-runs the broken version deliberately so this figure is reproducible.
