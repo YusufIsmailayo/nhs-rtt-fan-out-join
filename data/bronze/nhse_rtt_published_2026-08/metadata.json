@@ -1,0 +1,24 @@
+{
+  "slug": "nhse_rtt_published_2026-08",
+  "publisher": "NHS England",
+  "publication_name": "RTT Waiting Times, August 2026 - statistical press notice and Incomplete Provider workbook",
+  "source_page": "https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/rtt-data-2026-27/",
+  "vintage": "as first published, 8 Oct 2026",
+  "files": [
+    {
+      "name": "Aug26-RTT-statistical-press-notice-PDF-389K-vjgRdG.pdf",
+      "url": "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2026/10/Aug26-RTT-statistical-press-notice-PDF-389K-vjgRdG.pdf",
+      "note": "Table 1: incomplete pathways and % within 18 weeks by treatment function, England, not including estimates for missing trusts. Gate T target.",
+      "bytes": 398227,
+      "sha256": "db466ef2bc5f0b72d2e7f9bde4b5833c53e676c0b5937bf77c30c20354675391"
+    },
+    {
+      "name": "Incomplete-Provider-Aug26-XLSX-9M-vjgRdG.xlsx",
+      "url": "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2026/10/Incomplete-Provider-Aug26-XLSX-9M-vjgRdG.xlsx",
+      "note": "Published provider x treatment function incomplete pathways. Gate P target.",
+      "bytes": 10183411,
+      "sha256": "3c3bc9deb8e652a49c8eed6be1d7f5012c27adf1eb413b527ee00c75c20fd92a"
+    }
+  ],
+  "written_at_utc": "2026-11-04T11:04:09+00:00"
+}

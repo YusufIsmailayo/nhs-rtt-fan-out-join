@@ -1,0 +1,9 @@
+# Minimum versions I have run this against (Python 3.13).
+requests>=2.31
+pandas>=2.2
+pyarrow>=14.0
+openpyxl>=3.1
+pypdf>=4.0
+matplotlib>=3.8
+jupyter
+nbconvert>=7.0

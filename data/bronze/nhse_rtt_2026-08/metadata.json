@@ -1,0 +1,17 @@
+{
+  "slug": "nhse_rtt_2026-08",
+  "publisher": "NHS England",
+  "publication_name": "Consultant-led RTT Waiting Times - full CSV extract, August 2026",
+  "source_page": "https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/rtt-data-2026-27/",
+  "vintage": "as first published, 8 Oct 2026",
+  "files": [
+    {
+      "name": "Full-CSV-data-file-Aug26-ZIP-3M-vjgRdG.zip",
+      "url": "https://www.england.nhs.uk/statistics/wp-content/uploads/sites/2/2026/10/Full-CSV-data-file-Aug26-ZIP-3M-vjgRdG.zip",
+      "note": "Provider x commissioner x RTT part x treatment function x weekly wait bands (0-104+). The only input to the star schema.",
+      "bytes": 3440872,
+      "sha256": "1a679df24dc91a7fa40d020d4951b0947ded62a9cd3cb4d8b134d90723d2ad5a"
+    }
+  ],
+  "written_at_utc": "2026-11-04T11:04:09+00:00"
+}

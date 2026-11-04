@@ -1,0 +1,13 @@
+# Raw NHS England payloads: re-downloaded by notebooks/00_bronze.ipynb.
+# Each folder's metadata.json (URL, size, SHA-256) stays in git.
+data/bronze/**/*
+!data/bronze/*/
+!data/bronze/*/metadata.json
+
+# The star schema is rebuilt from Bronze by notebook 01.
+data/silver/
+
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+*.part
