@@ -80,6 +80,18 @@ LEFT JOIN ref_provider_main_icb r ON r.provider_code = p.provider_code
 WHERE r.provider_code IS NULL;                                                -- 2 trusts
 ```
 
+## The checks, packaged: join-guard
+
+This repo shows the problem on one month of NHS data. To check my own joins
+from now on, I turned the checks into a small, tested package:
+**[join-guard](https://github.com/YusufIsmailayo/join-guard)**. It checks a
+lookup before you join it: are its keys unique, which rows would an inner join
+drop, are there null keys, and what would the join do to a total. It does this
+in pandas (`guarded_merge` refuses the join and says why) and as portable
+SQL. Its test suite uses this repo's August 2026 case, so it has to catch the
+same 87 repeated trusts, 2 dropped providers and 7,158,164 → 8,051,914
+inflation reported here.
+
 ## The limitation: declared is not validated
 
 A declared cardinality records intent; it doesn't read the data. Databricks'
