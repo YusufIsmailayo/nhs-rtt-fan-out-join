@@ -1,0 +1,9 @@
+,At pathway grain,Through the fan-out
+Rows returned,"501,422 (each pathway once)","564,592 (rows × main ICBs per trust)"
+Denominator (England pathways),"7,158,164","8,051,914 (×1.12)"
+England % over 18 weeks,34.8%,34.7%
+Specialties moved 0.5+ points,—,5 of 23
+Largest move,—,Dermatology −0.75 pts
+Providers silently dropped,0,"2 (16,483 pathways)"
+Error raised,—,None
+Looks plausible,Yes,Yes
