@@ -112,7 +112,7 @@ refuses to run unless the gate's 53 checks all passed.
 | `02_reconciliation_gate` | Gold 00 | **T**: press notice Table 1, all 23 treatment functions, pathways exact and % within 18 weeks to 1 d.p.; **P**: the Incomplete Provider workbook, every provider × treatment function × week band exact |
 | `03_fan_out` | Gold 01 | the "main ICB" lookup, the fan-out, the gap by treatment function, the explanatory table, the crude contrast, threshold sensitivity, rank changes, the merger version, declared vs validated |
 | `04_charts` | Gold 02 | the paired bar chart, the explanatory table as an image, alt text generated from the same numbers |
-| `05_article_images` | Gold 02 | the chart redrawn for Medium's column width (`paired_bars_fan_out_medium.png`) and a 1200×630 social card of the six largest gaps (`social_card.png`), with alt text |
+| `05_article_images` | Gold 02 | the chart redrawn for Medium's column width (`paired_bars_fan_out_medium.png`) plus the cover (`cover_landscape.png`, 1800×945) and social card (`social_square.png`, 1260×1260) in the design of my other Medium cards, drawn by `src/make_cover_card.py`; alt text for all |
 | `sql/run_sql.py` | Gold 03 | runs `sql/fan_out.sql` in DuckDB over the star and asserts it reproduces notebooks 02 and 03; raises on any mismatch |
 
 ## The measure
