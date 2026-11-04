@@ -33,9 +33,12 @@ def figures() -> dict:
     rank = pd.read_csv(GOLD_DIR / "01_fan_out" / "rank_change.csv")
     main = con.index[1]
     inflation = con.loc[main, "inflation"]
-    rate_move = abs(con.loc[main, "england_pct_over_18"] - con.iloc[0].england_pct_over_18)
+    # The gap between the two England rates as readers will see them quoted
+    # (34.8% vs 34.7%), so the card agrees with the article. The unrounded
+    # gap is 0.09 points; it's in contrast.csv.
+    rate_move = abs(round(con.loc[main, "england_pct_over_18"], 1) - round(con.iloc[0].england_pct_over_18, 1))
     return {"inflation": f"×{inflation:.2f}",
-            "rate_move": f"{rate_move:.2f} pts",
+            "rate_move": f"{rate_move:.1f} pts",
             "rank": f"{int((rank.rank_change != 0).sum())} of {len(rank)}"}
 
 

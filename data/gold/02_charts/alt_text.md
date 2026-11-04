@@ -12,4 +12,4 @@ Paired horizontal bar chart of the percentage of incomplete RTT pathways waiting
 
 ## cover_landscape.png and social_square.png
 
-Cover card: 'The Join You Never Documented.' NHS data engineering, Medium, November 2026, by Yusuf Ismail. Three figures: the denominator inflated ×1.12 with no error raised; the England rate moved 0.09 pts and still looks right; 6 of 23 specialties change league-table rank. Pull quote: 'Same file. Same measure. No error. Two answers that both look right.'
+Cover card: 'The Join You Never Documented.' NHS data engineering, Medium, November 2026, by Yusuf Ismail. Three figures: the denominator inflated ×1.12 with no error raised; the England rate moved 0.1 pts and still looks right; 6 of 23 specialties change league-table rank. Pull quote: 'Same file. Same measure. No error. Two answers that both look right.'
