@@ -43,7 +43,7 @@ a provider → "main ICB" lookup that holds more than one row for some trusts.
   by 0.5+ (`threshold_sensitivity.csv`). 20% is the gentlest of the
   thresholds I tried.
 * **The crude version gets caught.** A lookup of *every* ICB a trust serves
-  inflates England to 239 million pathways (×33). Nobody presents that. The
+  inflates England to 240 million pathways (×34). Nobody presents that. The
   dangerous fan-out is the modest one.
 * **The merger version is too small to carry the argument.** The only trust
   merger in the window (North Bristol into Bristol NHS FT, July 2026) gives a

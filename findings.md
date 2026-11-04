@@ -50,7 +50,7 @@ Sorted by gap (fan-out minus correct, percentage points).
 |---|---|---|---|---|---|
 | none (correct grain) | 501,422 | 7,158,164 | ×1.000 | 34.79% | 0.00 |
 | main ICBs (>= 20% of trust list) | 564,592 | 8,051,914 | ×1.125 | 34.71% | 0.75 |
-| every ICB the trust serves | 15,779,282 | 239,428,768 | ×33.448 | 35.72% | 2.49 |
+| every ICB the trust serves | 15,845,245 | 240,286,507 | ×33.568 | 35.71% | 2.47 |
 
 ## Threshold sensitivity (what counts as a "main" ICB)
 

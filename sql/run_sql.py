@@ -74,7 +74,6 @@ def main() -> None:
     dim_provider = pd.read_parquet(STAR_DIR / "dim_provider.parquet")
     fact = pd.read_parquet(STAR_DIR / "fact_incomplete_pathways.parquet")
 
-    dim_commissioner = pd.read_parquet(STAR_DIR / "dim_commissioner.parquet")
 
     print("SQL against pandas:")
     # The lookup must be the same rows as notebook 03's, exactly.
@@ -82,21 +81,12 @@ def main() -> None:
     sql_lookup = r["ref_provider_main_icb"]
     assert sorted(map(tuple, sql_lookup[key].values)) == sorted(map(tuple, pd_lookup[key].values)), \
         "lookup rows differ from notebook 03"
-    # share_of_trust is a different matter. The seven NHS England hubs Y56-Y63
-    # have no name in the extract, and notebook 03 groups by parent_name, so
-    # pandas' groupby (dropna=True) leaves their 6,334 pathways out of each
-    # trust's total. SQL's GROUP BY keeps a NULL group, so the SQL counts them.
-    # It doesn't change a single lookup row at any threshold, so no published
-    # figure moves, but the share column does. I check the SQL share against
-    # the same pandas sum with every pathway counted, and report the gap.
-    share = (fact.merge(dim_commissioner, on="commissioner_code", validate="many_to_one")
-                 .groupby(["provider_code", "parent_code"], as_index=False).pathways.sum())
-    share["share_of_trust"] = share.pathways / share.groupby("provider_code").pathways.transform("sum")
-    share = share.rename(columns={"parent_code": "icb_code"}).merge(pd_lookup[key], on=key)
-    assert_frames_match("ref_provider_main_icb", sql_lookup, share, key=key, exact=[], close=["share_of_trust"])
-    nb_gap = (sql_lookup.set_index(key).share_of_trust - pd_lookup.set_index(key).share_of_trust).abs()
-    print(f"  {'':<22} note: vs notebook 03's CSV, {(nb_gap > TOL).sum()} shares differ "
-          f"(largest {nb_gap.max():.4f}): the unnamed hubs above")
+    # share_of_trust must agree too. It didn't at first: notebook 03 grouped on
+    # the hub name, and the seven NHS England hubs Y56-Y63 have none, so
+    # pandas dropped their 6,334 pathways from each trust's total while SQL's
+    # GROUP BY kept them. Notebook 03 now groups on the code alone.
+    assert_frames_match("ref_provider_main_icb", sql_lookup, pd_lookup, key=key, exact=[],
+                        close=["share_of_trust"])
     assert_frames_match("correct_grain_by_tf", r["correct_grain_by_tf"], pd_correct,
                         key=["tf_code"], exact=["tf_name", "pathways", "within_18_pathways"],
                         close=["pct_within_18", "pct_over_18"])

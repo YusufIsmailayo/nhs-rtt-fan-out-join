@@ -46,9 +46,9 @@ CREATE OR REPLACE VIEW dim_week_band            AS SELECT * FROM read_parquet('d
 --
 -- Seven NHS England hubs (Y56-Y63) have no name in the extract. GROUP BY
 -- keeps their NULL-named group, so their pathways count towards each trust's
--- total. (pandas' groupby drops a NaN key by default, so notebook 03's
--- share_of_trust leaves them out. Same 621 rows either way; sql/run_sql.py
--- checks that and reports the share difference.)
+-- total. pandas' groupby drops a NaN key by default, and this SQL is what
+-- showed me notebook 03 was doing exactly that; notebook 03 now groups on
+-- the code alone, and sql/run_sql.py checks the two agree.
 --
 -- This table is fine as a table. It only does damage once it's joined to the
 -- fact on a key it isn't unique on.
