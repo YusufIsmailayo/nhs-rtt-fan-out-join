@@ -2,7 +2,7 @@
 
 A worked demonstration, on real August 2026 figures, of how a single
 one-to-many join quietly changes NHS waiting-list figures without raising an
-error. Python (pandas), Parquet, Jupyter.
+error. Python (pandas), SQL (DuckDB, portable to MySQL 8), Parquet, Jupyter.
 
 I compute the percentage of incomplete RTT pathways waiting over 18 weeks,
 by treatment function, twice: once at the correct grain, which I first prove
@@ -51,6 +51,35 @@ a provider → "main ICB" lookup that holds more than one row for some trusts.
 
 Full numbers: [`findings.md`](findings.md).
 
+## SQL version
+
+Most people who'll meet this bug meet it in SQL, so
+[`sql/fan_out.sql`](sql/fan_out.sql) has the same two queries: the
+correct-grain query, then the same query with
+`JOIN ref_provider_main_icb USING (provider_code)` added. It also builds the
+lookup and lays the gaps out side by side. The queries are plain enough to
+run unchanged in MySQL 8; only a short preamble that gives the Parquet files
+table names is DuckDB-specific. `sql/run_sql.py` runs the file in DuckDB and
+asserts every figure equals the pandas output (pathways exact, percentages to
+1e-9), writing results to `data/gold/03_sql/`.
+
+The check that catches it takes a second, and I'd run it on any lookup before
+joining it to a fact table:
+
+```sql
+-- 1. If these differ, the key isn't unique and the join will fan out.
+SELECT COUNT(*), COUNT(DISTINCT provider_code) FROM ref_provider_main_icb;  -- 621 vs 530
+
+-- 2. Which keys repeat.
+SELECT provider_code, COUNT(*) FROM ref_provider_main_icb
+GROUP BY provider_code HAVING COUNT(*) > 1;                                   -- 87 trusts
+
+-- 3. Which providers an inner join would drop.
+SELECT p.provider_code FROM dim_provider p
+LEFT JOIN ref_provider_main_icb r ON r.provider_code = p.provider_code
+WHERE r.provider_code IS NULL;                                                -- 2 trusts
+```
+
 ## The limitation: declared is not validated
 
 A declared cardinality records intent; it doesn't read the data. Databricks'
@@ -69,6 +98,8 @@ not a declaration.
 pip install -r requirements.txt
 cd notebooks
 jupyter nbconvert --to notebook --execute --inplace 00_bronze.ipynb 01_star_schema.ipynb 02_reconciliation_gate.ipynb 03_fan_out.ipynb 04_charts.ipynb
+cd ..
+python sql/run_sql.py
 ```
 
 `02_reconciliation_gate.ipynb` raises on any failed check, and `03_fan_out`
@@ -81,6 +112,7 @@ refuses to run unless the gate's 53 checks all passed.
 | `02_reconciliation_gate` | Gold 00 | **T**: press notice Table 1, all 23 treatment functions, pathways exact and % within 18 weeks to 1 d.p.; **P**: the Incomplete Provider workbook, every provider × treatment function × week band exact |
 | `03_fan_out` | Gold 01 | the "main ICB" lookup, the fan-out, the gap by treatment function, the explanatory table, the crude contrast, threshold sensitivity, rank changes, the merger version, declared vs validated |
 | `04_charts` | Gold 02 | the paired bar chart, the explanatory table as an image, alt text generated from the same numbers |
+| `sql/run_sql.py` | Gold 03 | runs `sql/fan_out.sql` in DuckDB over the star and asserts it reproduces notebooks 02 and 03; raises on any mismatch |
 
 ## The measure
 
